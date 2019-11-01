@@ -1,0 +1,8 @@
+---
+BasedOnStyle: Google
+AlignConsecutiveAssignments: true
+AlignConsecutiveDeclarations: true
+ColumnLimit: 100
+DerivePointerAlignment: false
+IndentWidth: 2
+PointerAlignment: Left 
