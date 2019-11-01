@@ -30,8 +30,8 @@ It was published by Microsoft in 2016 in form of a C\# script. The explanation d
 
 # INSTALLATION
 
-    wget https://github.com/Tekki/quickxor-c/archive/v@PACKAGE_VERSION@.tar.gz
-    tar xzf @PACKAGE_TARNAME@-@PACKAGE_VERSION@.tar.gz
+    wget https://github.com/Tekki/quickxor-c/archive/v@PACKAGE_VERSION@.tar.gz -O @PACKAGE_TARNAME@-@PACKAGE_VERSION@.tar.gz
+    tar xvzf @PACKAGE_TARNAME@-@PACKAGE_VERSION@.tar.gz
     cd quickxor-c-@PACKAGE_VERSION@
     autoreconf --install
     ./configure
