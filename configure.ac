@@ -2,7 +2,7 @@
 
 # prelude
 AC_PREREQ([2.69])
-AC_INIT([QuickXor],[0.01],[tekki@tekki.ch])
+AC_INIT([QuickXor],[0.02],[tekki@tekki.ch])
 AM_PROG_AR
 
 # unique source file --- primitive safety check 

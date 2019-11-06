@@ -1,0 +1,15 @@
+CC = gcc
+CFLAGS = -lm -lssl -lcrypto -g -Wall
+
+quickxorhash: quickxor_bin.o quickxor.o
+	$(CC) $(CFLAGS) $^ -o $@
+
+quickxor_bin.o: quickxor_bin.c
+	$(CC) -c $^ -o $@
+
+quickxor.o: quickxor.c
+	$(CC) -c $^ -o $@
+
+clean:
+	rm -f *.o
+	rm -f quickxorhash

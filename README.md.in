@@ -30,6 +30,8 @@ It was published by Microsoft in 2016 in form of a C\# script. The explanation d
 
 # INSTALLATION
 
+Requires `openssl`. For full installation additionally `automake` and `libtool`.
+
     wget https://github.com/Tekki/quickxor-c/archive/v@PACKAGE_VERSION@.tar.gz -O @PACKAGE_TARNAME@-@PACKAGE_VERSION@.tar.gz
     tar xvzf @PACKAGE_TARNAME@-@PACKAGE_VERSION@.tar.gz
     cd quickxor-c-@PACKAGE_VERSION@
@@ -39,6 +41,11 @@ It was published by Microsoft in 2016 in form of a C\# script. The explanation d
     make check  # optional
     sudo make install
     sudo ldconfig
+
+If you just need a running binary you can compile it with
+
+    cd src
+    make -f Makefile.simple
 
 # BINARY
 

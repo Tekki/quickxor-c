@@ -30,15 +30,22 @@ It was published by Microsoft in 2016 in form of a C\# script. The explanation d
 
 # INSTALLATION
 
-    wget https://github.com/Tekki/quickxor-c/archive/v0.01.tar.gz -O quickxor-0.01.tar.gz
-    tar xvzf quickxor-0.01.tar.gz
-    cd quickxor-c-0.01
+Requires `openssl`. For full installation additionally `automake` and `libtool`.
+
+    wget https://github.com/Tekki/quickxor-c/archive/v0.02.tar.gz -O quickxor-0.02.tar.gz
+    tar xvzf quickxor-0.02.tar.gz
+    cd quickxor-c-0.02
     autoreconf --install
     ./configure
     make
     make check  # optional
     sudo make install
     sudo ldconfig
+
+If you just need a running binary you can compile it with
+
+    cd src
+    make -f Makefile.simple
 
 # BINARY
 
