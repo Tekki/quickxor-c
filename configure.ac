@@ -27,7 +27,7 @@ AM_PROG_CC_C_O
 
 # checks for header files
 AC_HEADER_STDC
-AC_CHECK_HEADERS([math.h stdlib.h string.h openssl/hmac.h])
+AC_CHECK_HEADERS([stdlib.h string.h openssl/hmac.h])
 
 # checks for typedefs, structures, and compiler characteristics
 

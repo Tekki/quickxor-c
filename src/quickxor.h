@@ -4,17 +4,22 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#define QX_SHIFT 11
+#define QX_WIDTH_IN_BITS 160
+#define QX_WIDTH_IN_BYTES 20
+#define QX_DATA_LENGTH 3
+
 typedef struct {
-  size_t    kDataLength;
-  size_t    kShift;
-  size_t    kWidthInBits;
-  size_t    kWidthInBytes;
-  size_t    lengthSoFar;
-  size_t    shiftSoFar;
-  uint64_t* data;
+  size_t   kDataLength;
+  size_t   kShift;
+  size_t   kWidthInBits;
+  size_t   kWidthInBytes;
+  size_t   lengthSoFar;
+  size_t   shiftSoFar;
+  uint64_t data[QX_DATA_LENGTH];
 } QX;
 
-QX*  QX_new();
+QX* QX_new();
 
 void QX_add(QX* pqx, uint8_t* addData, size_t addSize);
 
@@ -28,4 +33,4 @@ int QX_readFile(QX* pqx, char* filename);
 
 void QX_reset(QX* pqx);
 
-#endif
+#endif /* QUICKXOR_H */

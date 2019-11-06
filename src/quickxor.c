@@ -19,7 +19,6 @@
  *
  */
 
-#include <math.h>
 #include <openssl/hmac.h>
 #include <string.h>
 #include "quickxor.h"
@@ -29,16 +28,10 @@ QX* QX_new() {
 
   pqx = calloc(1, sizeof(QX));
   if (pqx) {
-    pqx->kWidthInBits  = 160;
-    pqx->kShift        = 11;
-    pqx->kWidthInBytes = ceil((double)pqx->kWidthInBits / 8);
-    pqx->kDataLength   = ceil((double)pqx->kWidthInBits / 64);
-
-    pqx->data = calloc(pqx->kDataLength, sizeof(uint64_t));
-    if (!pqx->data) {
-      free(pqx);
-      pqx = NULL;
-    }
+    pqx->kWidthInBits  = QX_WIDTH_IN_BITS;
+    pqx->kShift        = QX_SHIFT;
+    pqx->kWidthInBytes = QX_WIDTH_IN_BYTES;
+    pqx->kDataLength   = QX_DATA_LENGTH;
   }
 
   return pqx;
@@ -149,16 +142,14 @@ char* QX_b64digest(QX* pqx) {
 
 void QX_free(QX* pqx) {
   if (pqx) {
-    free(pqx->data);
+    /* free(pqx->data); */
     free(pqx);
   }
 }
 
 void QX_reset(QX* pqx) {
   if (pqx) {
-    uint64_t* old_data = pqx->data;
-    pqx->data          = calloc(pqx->kDataLength, sizeof(uint64_t));
-    free(old_data);
+    memset(pqx->data, 0, QX_DATA_LENGTH * sizeof(uint64_t));
     pqx->lengthSoFar = 0;
     pqx->shiftSoFar  = 0;
   }
