@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "../src/quickxor.h"
 
-// core tests
+/* core tests */
 
 START_TEST(creates) {
   QX* pqx = NULL;
@@ -31,7 +31,7 @@ START_TEST(has_correct_defaults) {
 }
 END_TEST
 
-// data tests
+/* data tests */
 
 START_TEST(adds_data) {
   QX* pqx = NULL;
@@ -76,20 +76,20 @@ START_TEST(calculates_digest) {
   QX_add(pqx, addData, 12);
 
   ck_assert_str_eq(QX_b64digest(pqx), "QQDBHNDwBjnQAQR0JAMe6AAAAAA=");
-  // try again
+  /* try again */
   ck_assert_str_eq(QX_b64digest(pqx), "QQDBHNDwBjnQAQR0JAMe6AAAAAA=");
 
   QX_free(pqx);
 }
 END_TEST
 
-// file tests
+/* file tests */
 
 START_TEST(reads_file) {
   QX*  pqx = NULL;
   char filename[50];
 
-  // illegal and inexistant values
+  /* illegal and inexistant values */
   ck_assert_int_eq(QX_readFile(pqx, filename), 1);
 
   pqx = QX_new();
@@ -100,22 +100,22 @@ START_TEST(reads_file) {
   strcpy(filename, "iNeXiStAnT");
   ck_assert_int_eq(QX_readFile(pqx, filename), 1);
 
-  // short_text.txt
+  /* short_text.txt */
   strcpy(filename, "short_text.txt");
   ck_assert_int_eq(QX_readFile(pqx, filename), 0);
   ck_assert_str_eq(QX_b64digest(pqx), "QQDBHNDwBjnQAQR0JAMe6AAAAAA=");
 
-  // longer_text.txt
+  /* longer_text.txt */
   strcpy(filename, "longer_text.txt");
   ck_assert_int_eq(QX_readFile(pqx, filename), 0);
   ck_assert_str_eq(QX_b64digest(pqx), "MyNPbFMLAm5Ol0JF4iqBwtfLtf8=");
 
-  // perl_logo.svg
+  /* perl_logo.svg */
   strcpy(filename, "perl_logo.svg");
   ck_assert_int_eq(QX_readFile(pqx, filename), 0);
   ck_assert_str_eq(QX_b64digest(pqx), "t+ivKo9P9+OBdXUVle2LDwOmIzI=");
 
-  // perl_camel.png
+  /* perl_camel.png */
   strcpy(filename, "perl_camel.png");
   ck_assert_int_eq(QX_readFile(pqx, filename), 0);
   ck_assert_str_eq(QX_b64digest(pqx), "btGJtuvrt57YpSgEUpMJKkNQywA=");
@@ -132,17 +132,20 @@ Suite* quickxorSuite() {
 
   suite = suite_create("QuickXor");
 
+  /* core test case */
   tc_core = tcase_create("Core");
   suite_add_tcase(suite, tc_core);
   tcase_add_test(tc_core, creates);
   tcase_add_test(tc_core, has_correct_defaults);
 
+  /* data test case */
   tc_data = tcase_create("Data");
   suite_add_tcase(suite, tc_data);
   tcase_add_test(tc_core, adds_data);
   tcase_add_test(tc_core, resets);
   tcase_add_test(tc_core, calculates_digest);
 
+  /* files test case */
   tc_files = tcase_create("Files");
   suite_add_tcase(suite, tc_files);
   tcase_add_test(tc_core, reads_file);

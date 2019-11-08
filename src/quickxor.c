@@ -1,5 +1,5 @@
 /*
- * quickxor - QuickXor hash library
+ * libquickxor - QuickXorHash Library
  *
  * © 2019 by Tekki (Rolf Stöckli)
  *
@@ -21,6 +21,7 @@
 
 #include <openssl/hmac.h>
 #include <string.h>
+#include "base64.h"
 #include "quickxor.h"
 
 QX* QX_new() {
@@ -60,10 +61,10 @@ void QX_add(QX* pqx, uint8_t* addData, size_t addSize) {
       xoredByte ^= addData[j];
     }
 
-    pqx->data[vectorArrayIndex] ^= (uint64_t)xoredByte << vectorOffset;
+    pqx->data[vectorArrayIndex] ^= ((uint64_t)xoredByte) << vectorOffset;
 
     if (vectorOffset > bitsInVectorCell - 8) {
-      pqx->data[nextCell] ^= (uint64_t)xoredByte >> (bitsInVectorCell - vectorOffset);
+      pqx->data[nextCell] ^= ((uint64_t)xoredByte) >> (bitsInVectorCell - vectorOffset);
     }
 
     vectorOffset += pqx->kShift;
@@ -108,41 +109,26 @@ uint8_t* QX_digest(QX* pqx) {
 }
 
 char* QX_b64digest(QX* pqx) {
-  BIO*     mem    = NULL;
-  BIO*     b64    = NULL;
-  char*    hash   = NULL;
   uint8_t* digest = NULL;
+  size_t   hashSize;
+  char*    hash = NULL;
 
-  digest = QX_digest(pqx);
-  mem    = BIO_new(BIO_s_mem());
-  b64    = BIO_new(BIO_f_base64());
-  hash   = calloc(2, pqx->kWidthInBytes);
+  digest   = QX_digest(pqx);
+  hashSize = 2 * pqx->kWidthInBytes;
+  hash     = calloc(1, hashSize);
 
-  if (digest && mem && b64 && hash) {
-    b64 = BIO_push(b64, mem);
-    BIO_write(b64, digest, pqx->kWidthInBytes);
-    BIO_flush(b64);
-
-    BIO_read(mem, hash, pqx->kWidthInBytes * 2);
-    hash[strcspn(hash, "\r\n")] = '\0';
+  if (digest && hash) {
+    B64_encode(digest, pqx->kWidthInBytes, hash, hashSize);
   }
 
   free(digest);
   digest = NULL;
-  if (b64) {
-    BIO_free_all(b64);
-    b64 = NULL;
-  } else {
-    BIO_free_all(mem);
-  }
-  mem = NULL;
 
   return hash;
 }
 
 void QX_free(QX* pqx) {
   if (pqx) {
-    /* free(pqx->data); */
     free(pqx);
   }
 }

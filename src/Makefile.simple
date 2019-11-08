@@ -1,16 +1,16 @@
 CC = gcc
 CFLAGS = -g -Wall
-LDFLAGS = -lssl -lcrypto
+LDFLAGS =
 
-quickxorhash: quickxor_bin.o quickxor.o
+TARGET = quickxorhash
+
+OBJECTS := $(patsubst %.c,%.o,$(wildcard *.c))
+
+$(TARGET): $(OBJECTS)
 	$(CC) $(CFLAGS) $(LDFLAGS) $^ -o $@
 
-quickxor_bin.o: quickxor_bin.c
-	$(CC) -c $^ -o $@
-
-quickxor.o: quickxor.c
-	$(CC) -c $^ -o $@
+$(OBJECTS): %.o: %.c
+	$(CC) $(CFLAGS) -c $^ -o $@
 
 clean:
-	rm -f *.o
-	rm -f quickxorhash
+	rm -f $(TARGET) $(OBJECTS)

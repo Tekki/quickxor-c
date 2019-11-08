@@ -2,7 +2,7 @@
 
 # prelude
 AC_PREREQ([2.69])
-AC_INIT([QuickXor],[0.02],[tekki@tekki.ch])
+AC_INIT([QuickXor], [0.10], [tekki@tekki.ch])
 AM_PROG_AR
 
 # unique source file --- primitive safety check 
@@ -21,13 +21,13 @@ LT_INIT
 
 # checks for libraries
 
-PKG_CHECK_MODULES([REQUIRED], [openssl >= 1.1])
+# PKG_CHECK_MODULES([REQUIRED], [])
 PKG_CHECK_MODULES([TEST], [check >= 0.10.0])
 AM_PROG_CC_C_O
 
 # checks for header files
 AC_HEADER_STDC
-AC_CHECK_HEADERS([stdlib.h string.h openssl/hmac.h])
+AC_CHECK_HEADERS([stdlib.h string.h])
 
 # checks for typedefs, structures, and compiler characteristics
 

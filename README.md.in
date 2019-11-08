@@ -1,6 +1,6 @@
 # NAME
 
-libquickxor - C implementation of the QuickXor hash
+libquickxor - C implementation of the QuickXorHash
 
 # SYNOPSIS
 
@@ -22,19 +22,22 @@ libquickxor - C implementation of the QuickXor hash
 
 # DESCRIPTION
 
-The C implementation of the QuickXor hash.
+libquickxor is the C implementation of the QuickXorHash.
 
-The QuickXor hash is the digest used by Microsoft on Office 365 OneDrive for Business and Sharepoint.
+The QuickXorHash is the digest used by Microsoft on Office 365 OneDrive for Business and Sharepoint.
 It was published by Microsoft in 2016 in form of a C\# script. The explanation describes it as a
 "quick, simple non-cryptographic hash algorithm that works by XORing the bytes in a circular-shifting fashion".
 
 # INSTALLATION
 
-Requires `openssl`. For full installation additionally `automake` and `libtool`.
+Download the latest version from Github.
 
     wget https://github.com/Tekki/quickxor-c/archive/v@PACKAGE_VERSION@.tar.gz -O @PACKAGE_TARNAME@-@PACKAGE_VERSION@.tar.gz
     tar xvzf @PACKAGE_TARNAME@-@PACKAGE_VERSION@.tar.gz
     cd quickxor-c-@PACKAGE_VERSION@
+
+A full installation requires `automake` and `libtool`.
+
     autoreconf --install
     ./configure
     make
