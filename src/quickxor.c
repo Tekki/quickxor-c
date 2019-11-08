@@ -19,7 +19,7 @@
  *
  */
 
-#include <openssl/hmac.h>
+#include <stdio.h>
 #include <string.h>
 #include "base64.h"
 #include "quickxor.h"
@@ -29,10 +29,10 @@ QX* QX_new() {
 
   pqx = calloc(1, sizeof(QX));
   if (pqx) {
-    pqx->kWidthInBits  = QX_WIDTH_IN_BITS;
-    pqx->kShift        = QX_SHIFT;
-    pqx->kWidthInBytes = QX_WIDTH_IN_BYTES;
     pqx->kDataLength   = QX_DATA_LENGTH;
+    pqx->kShift        = QX_SHIFT;
+    pqx->kWidthInBits  = QX_WIDTH_IN_BITS;
+    pqx->kWidthInBytes = QX_WIDTH_IN_BYTES;
   }
 
   return pqx;
@@ -133,14 +133,6 @@ void QX_free(QX* pqx) {
   }
 }
 
-void QX_reset(QX* pqx) {
-  if (pqx) {
-    memset(pqx->data, 0, QX_DATA_LENGTH * sizeof(uint64_t));
-    pqx->lengthSoFar = 0;
-    pqx->shiftSoFar  = 0;
-  }
-}
-
 int QX_readFile(QX* pqx, char* filename) {
   int status = 1;
   if (pqx && strlen(filename)) {
@@ -160,4 +152,12 @@ int QX_readFile(QX* pqx, char* filename) {
     }
   }
   return status;
+}
+
+void QX_reset(QX* pqx) {
+  if (pqx) {
+    memset(pqx->data, 0, QX_DATA_LENGTH * sizeof(uint64_t));
+    pqx->lengthSoFar = 0;
+    pqx->shiftSoFar  = 0;
+  }
 }
