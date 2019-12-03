@@ -131,8 +131,11 @@ the terms of the Artistic License version 2.0.
 
 # SEE ALSO
 
+Explanation of the
 [QuickXorHash Algorithm](https://docs.microsoft.com/en-us/onedrive/developer/code-snippets/quickxorhash?view=odsp-graph-online)
 in the OneDrive Dev Center.
 
 [QuickXorHash.cs](https://gist.github.com/rgregg/c07a91964300315c6c3e77f7b5b861e4)
 by Ryan Gregg.
+
+[Digest::QuickXor](https://metacpan.org/pod/Digest::QuickXor), Perl implementation.
